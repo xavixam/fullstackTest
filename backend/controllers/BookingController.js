@@ -8,14 +8,14 @@ const BookingController = {
       const { vehicleId, startDate, endDate } = req.body;
 
       if (!vehicleId || !startDate || !endDate) {
-        return res.status(400).json({ error: 'vehicleId, startDate y endDate son requeridos' });
+        return res.status(400).json({ error: 'vehicleId, startDate and endDate are required' });
       }
 
       const start = new Date(startDate);
       const end = new Date(endDate);
 
       if (start >= end) {
-        return res.status(400).json({ error: 'startDate debe ser antes de endDate' });
+        return res.status(400).json({ error: 'startDate must be before endDate' });
       }
 
       const overlapping = await Booking.findOne({
@@ -27,7 +27,7 @@ const BookingController = {
       });
 
       if (overlapping) {
-        return res.status(400).json({ error: 'El vehículo ya está reservado en esas fechas' });
+        return res.status(400).json({ error: 'The vehicle is already booked' });
       }
 
       const booking = await Booking.create({ vehicleId, startDate: start, endDate: end });
