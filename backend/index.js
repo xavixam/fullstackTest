@@ -1,19 +1,30 @@
 require('dotenv').config();
 const express = require('express');
+const { Sequelize } = require('sequelize');
+
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(express.json());
+const sequelize = new Sequelize(
+  process.env.DATABASE_NAME,
+  process.env.DATABASE_USER,
+  process.env.DATABASE_PASS,
+  {
+    host: process.env.DATABASE_HOST,
+    port: process.env.DATABASE_PORT,
+    dialect: 'mysql'
+  }
+);
 
-app.get('/', (req, res) => {
-  res.send('Servidor funcionando');
+app.get('/', async (req, res) => {
+  try {
+    await sequelize.authenticate();
+    res.send('MySQL connection succesfull!');
+  } catch (err) {
+    res.status(500).send('Error connecting: ' + err);
+  }
 });
 
-const sequelize = require('./models/index');
-const User = require('./models/User');
-
-sequelize.sync().then(() => {
-  app.listen(port, () => {
-    console.log(`Servidor escuchando en http://localhost:${port}`);
-  });
+app.listen(port, () => {
+  console.log(`Server running in port: ${port}`);
 });
