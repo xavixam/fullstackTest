@@ -12,6 +12,8 @@ module.exports = {
       },
       firstName: { type: Sequelize.STRING },
       lastName: { type: Sequelize.STRING },
+      firstName: { type: Sequelize.STRING },
+      lastName: { type: Sequelize.STRING },
       vehicleId: {
         type: Sequelize.INTEGER,
         references: { model: 'Vehicles', key: 'id' },

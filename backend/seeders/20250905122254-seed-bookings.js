@@ -19,6 +19,8 @@ module.exports = {
       const endDate = new Date(startDate.getTime() + 2 * 24 * 60 * 60 * 1000); // 2 days duration
 
       bookings.push({
+        firstName: `First${index + 1}`,
+        lastName: `Last${index + 1}`,
         vehicleId: v.id,
         startDate,
         endDate,
@@ -34,4 +36,3 @@ module.exports = {
     await queryInterface.bulkDelete('Bookings', null, {});
   }
 };
-

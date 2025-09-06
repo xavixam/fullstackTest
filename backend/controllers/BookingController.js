@@ -1,11 +1,10 @@
-const { Booking, Vehicle } = require('../models');
 const { Op } = require('sequelize');
+const { Booking } = require('../models');
 
-const BookingController = {
-
+module.exports = {
   async create(req, res, next) {
     try {
-      const { vehicleId, startDate, endDate } = req.body;
+      const { vehicleId, startDate, endDate, firstName, lastName } = req.body;
 
       if (!vehicleId || !startDate || !endDate) {
         return res.status(400).json({ error: 'vehicleId, startDate and endDate are required' });
@@ -30,7 +29,14 @@ const BookingController = {
         return res.status(400).json({ error: 'The vehicle is already booked' });
       }
 
-      const booking = await Booking.create({ vehicleId, startDate: start, endDate: end });
+      const booking = await Booking.create({
+        firstName,
+        lastName,
+        vehicleId,
+        startDate: start,
+        endDate: end
+      });
+
       res.status(201).json(booking);
 
     } catch (error) {
@@ -39,32 +45,4 @@ const BookingController = {
       res.status(500).json({ message: "There was a problem", error });
     }
   },
-
-  async getAll(req, res, next) {
-    try {
-      const bookings = await Booking.findAll({
-        include: { model: Vehicle, attributes: ["id", "name"] }
-      });
-      res.status(200).json(bookings);
-    } catch (error) {
-      console.error(error);
-      next(error);
-      res.status(500).json({ message: "There was a problem", error });
-    }
-  },
-
-  async getById(req, res, next) {
-    try {
-      const booking = await Booking.findByPk(req.params.id, {
-        include: { model: Vehicle, attributes: ["id", "name"] }
-      });
-      res.status(200).json(booking);
-    } catch (error) {
-      console.error(error);
-      next(error);
-      res.status(500).json({ message: "There was a problem", error });
-    }
-  },
 };
-
-module.exports = BookingController;

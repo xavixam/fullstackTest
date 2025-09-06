@@ -18,7 +18,6 @@ module.exports = {
       { name: 'Adrenaline SL 10 SC45', vehicleTypeId: 4, createdAt: new Date(), updatedAt: new Date() },
       { name: 'Quercus', vehicleTypeId: 4, createdAt: new Date(), updatedAt: new Date() },
       { name: 'Kenta SL LTD', vehicleTypeId: 4, createdAt: new Date(), updatedAt: new Date() }
-
     ]);
   },
   async down(queryInterface, Sequelize) {
