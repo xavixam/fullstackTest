@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
+import "./Form.css"
+import { useState, useEffect } from "react";
 import axios from "axios";
+import { TextField } from "@mui/material";
 
 const Form = () => {
     const [step, setStep] = useState(1);
@@ -17,14 +19,12 @@ const Form = () => {
         endDate: "",
     });
 
-    // Cargar tipos de vehículos
     useEffect(() => {
         axios.get("http://localhost:3000/vehicleTypes").then((res) => {
             setVehicleTypes(res.data);
         });
     }, []);
 
-    // Cargar vehículos según tipo
     useEffect(() => {
         if (formData.vehicleTypeId) {
             axios
@@ -33,7 +33,7 @@ const Form = () => {
                 )
                 .then((res) => setVehicles(res.data));
         } else {
-            setVehicles([]); // Limpia si cambia tipo
+            setVehicles([]);
         }
     }, [formData.vehicleTypeId]);
 
@@ -89,24 +89,33 @@ const Form = () => {
     };
 
     return (
-        <div>
+        <div className="flex justify-center flex-col">
             <h1>Booking Form</h1>
             {error && <p style={{ color: "red" }}>{error}</p>}
 
             {step === 1 && (
-                <div>
-                    <h2>What is your name?</h2>
-                    <input
-                        placeholder="First Name"
-                        value={formData.firstName}
-                        onChange={(e) => handleChange("firstName", e.target.value)}
-                    />
-                    <input
-                        placeholder="Last Name"
-                        value={formData.lastName}
-                        onChange={(e) => handleChange("lastName", e.target.value)}
-                    />
-                </div>
+                <>
+                    <div className="flex flex-col gap-10 p-8 w-full items-center">
+                        <h2>What is your name?</h2>
+                        <div className="flex flex-col gap-4">
+                            <TextField
+                                id="first-name"
+                                label="First Name"
+                                variant="outlined"
+                                value={formData.firstName}
+                                onChange={(e) => handleChange("firstName", e.target.value)}
+                            />
+                            <TextField
+                                id="last-name"
+                                label="Last Name"
+                                variant="outlined"
+                                value={formData.lastName}
+                                onChange={(e) => handleChange("lastName", e.target.value)}
+                            />
+                        </div>
+                    </div>
+
+                </>
             )}
 
             {step === 2 && (
