@@ -11,7 +11,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: { type: Sequelize.STRING },
-      wheels: { type: Sequelize.INTEGER, allowNull: false, defaultValue: 4 },
+      wheels: { type: Sequelize.STRING, allowNull: false, defaultValue: 4 },
       createdAt: { allowNull: false, type: Sequelize.DATE },
       updatedAt: { allowNull: false, type: Sequelize.DATE }
     });

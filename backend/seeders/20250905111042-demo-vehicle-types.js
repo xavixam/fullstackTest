@@ -6,10 +6,10 @@ module.exports = {
     await queryInterface.bulkDelete('VehicleTypes', null, {});
 
     await queryInterface.bulkInsert('VehicleTypes', [
-      { name: 'Hatchback', wheels: 4, createdAt: new Date(), updatedAt: new Date() },
-      { name: 'Suv', wheels: 4, createdAt: new Date(), updatedAt: new Date() },
-      { name: 'Sedan', wheels: 4, createdAt: new Date(), updatedAt: new Date() },
-      { name: 'Sports Bike', wheels: 2, createdAt: new Date(), updatedAt: new Date() },
+      { name: 'Hatchback', wheels: "4", createdAt: new Date(), updatedAt: new Date() },
+      { name: 'Suv', wheels: "4", createdAt: new Date(), updatedAt: new Date() },
+      { name: 'Sedan', wheels: "4", createdAt: new Date(), updatedAt: new Date() },
+      { name: 'Sports Bike', wheels: "2", createdAt: new Date(), updatedAt: new Date() },
     ]);
   },
   async down(queryInterface, Sequelize) {
