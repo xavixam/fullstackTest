@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   VehicleType.init({
-    name: DataTypes.STRING
+    name: DataTypes.STRING,
+    wheels: DataTypes.INTEGER // 👈 añadimos aquí
   }, {
     sequelize,
     modelName: 'VehicleType',
